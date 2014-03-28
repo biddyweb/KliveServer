@@ -40,6 +40,8 @@ public class Receiver {
     DatagramPacket sendPacket=new DatagramPacket(fileData, 0,InetAddress.getByName("224.1.1.2"),9999);
     sendSocket.setSendBufferSize(5000000);
     ByteBuffer wrapped = ByteBuffer.wrap(fileData);
+    long tStart = System.currentTimeMillis();
+    long tEnd;
     short prevTimeStamp = -1;
         while(true)
     {
@@ -62,7 +64,9 @@ public class Receiver {
         if(timeStamp!=prevTimeStamp)
         {
             prevTimeStamp = timeStamp;
-            Thread.sleep(700);
+            tEnd=System.currentTimeMillis();
+            Thread.sleep(1000-(tEnd-tStart)-200);
+            tStart=System.currentTimeMillis();
         }
     }
     
